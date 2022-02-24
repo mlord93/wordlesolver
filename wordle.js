@@ -2,6 +2,7 @@ import fs from 'fs';
 import promptSync from 'prompt-sync';
 const prompt = promptSync();
 let words = getInput();
+//there's a bug with forbidden characters-- if I have Green character and have another occurance of that character in my guess and it is gray, it fails the word
 
 function getInput() {
     try {
@@ -24,7 +25,7 @@ function play() {
         words = words.filter(word => {
             let usedIndexes = result.split('').reduce((a, c, i) => c == 'g' ? [...a, i] : a, []);
             for (let i = 0; i<word.length; i++) {
-                if (forbiddenChars.includes(word[i])) return false; 
+                if (forbiddenChars.includes(word[i]) && result[i] !== 'g' ) return false; 
                 if (result[i] == 'g' && guess[i] !== word[i] ) return false;
                 if (result[i] == 'y' ) {
                     if (guess[i] == word[i]) return false;
@@ -36,6 +37,7 @@ function play() {
             return true;
         });
         console.log(words);
+        console.log(`Number of options: ${words.length}`);
     }
 }
 
