@@ -28,7 +28,7 @@ function play() {
                 if (result[i] == 'g' && guess[i] !== word[i] ) return false;
                 if (result[i] == 'y' ) {
                     if (guess[i] == word[i]) return false;
-                    let unusedMatches = getAllOccurances(word, guess[i]).filter(c => !usedIndexes.includes(c))
+                    let unusedMatches = [...word.matchAll(guess[i])].map(match => match.index).filter(c => !usedIndexes.includes(c))
                     if (unusedMatches.length == 0) return false;
                     usedIndexes.push(unusedMatches[0]);
                 }
@@ -38,14 +38,6 @@ function play() {
         console.log(words);
         console.log(`Number of options: ${words.length}`);
     }
-}
-
-function getAllOccurances(word, char) {
-    const occurances = [];
-    for (let i = 0; i<word.length; i++) {
-        if (word[i] == char) occurances.push(i);
-    }
-    return occurances;
 }
 
 play();
