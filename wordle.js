@@ -2,7 +2,6 @@ import fs from 'fs';
 import promptSync from 'prompt-sync';
 const prompt = promptSync();
 let words = getInput();
-//there's a bug with forbidden characters-- if I have Green character and have another occurance of that character in my guess and it is gray, it fails the word
 
 function getInput() {
     try {
